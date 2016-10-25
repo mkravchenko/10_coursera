@@ -1,7 +1,6 @@
 import json
 import random
 import re
-
 import requests
 import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
@@ -12,9 +11,9 @@ def get_courses_list(number_of_courses=20):
     course_urls_list = []
     site_map = requests.get("https://www.coursera.org/sitemap~www~courses.xml")
     root = ET.fromstring(site_map.text)
-    url_bodies = root.getchildren()
-    random.shuffle(url_bodies)
-    for loc in url_bodies:
+    list_urls = root.getchildren()
+    random.choice(list_urls)
+    for loc in list_urls:
         if number_of_courses:
             course_urls_list.append(loc[0].text)
             number_of_courses -= 1
@@ -24,6 +23,7 @@ def get_courses_list(number_of_courses=20):
 def get_courses_info(course_urls_list):
     curses_base_info_list = []
     for url in course_urls_list:
+        print(url)
         response = requests.get(url)
         parsed_html = BeautifulSoup(response.text, 'html.parser')
 

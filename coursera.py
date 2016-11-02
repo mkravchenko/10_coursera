@@ -23,7 +23,6 @@ def get_courses_list(number_of_courses=20):
 def get_courses_info(course_urls_list):
     curses_base_info_list = []
     for url in course_urls_list:
-        print(url)
         response = requests.get(url)
         parsed_html = BeautifulSoup(response.text, 'html.parser')
 

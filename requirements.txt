@@ -1,3 +1,4 @@
-bs4
+beautifulsoup4==4.5.1   # via bs4
+bs4==0.0.1
 requests==2.11.1
 openpyxl==2.3.5

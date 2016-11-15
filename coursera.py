@@ -12,7 +12,10 @@ def get_courses_list(number_of_courses=20):
     site_map = requests.get("https://www.coursera.org/sitemap~www~courses.xml")
     root = ET.fromstring(site_map.text)
     list_urls = root.getchildren()
-    random.choice(list_urls)
+    try:
+        random.choice(list_urls)
+    except IndexError:
+        print("List of urls is empty!")
     for loc in list_urls:
         if number_of_courses:
             course_urls_list.append(loc[0].text)
@@ -46,7 +49,8 @@ def get_course_start_time(parsed_html):
     script = parsed_html.find("script", type="application/ld+json")
     if script is not None:
         json_data = json.loads(script.contents[0])
-        return json_data["hasCourseInstance"][0]["startDate"]
+        if "startDate" in json_data["hasCourseInstance"][0]:
+            return json_data["hasCourseInstance"][0]["startDate"]
     return None
 
 

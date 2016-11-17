@@ -12,14 +12,9 @@ def get_courses_list(number_of_courses=20):
     site_map = requests.get("https://www.coursera.org/sitemap~www~courses.xml")
     root = ET.fromstring(site_map.text)
     list_urls = root.getchildren()
-    try:
-        random.choice(list_urls)
-    except IndexError:
-        print("List of urls is empty!")
-    for loc in list_urls:
-        if number_of_courses:
-            course_urls_list.append(loc[0].text)
-            number_of_courses -= 1
+    for i in range(0, number_of_courses):
+        url = random.choice(list_urls)
+        course_urls_list.append(url[0].text)
     return course_urls_list
 
 

@@ -8,13 +8,11 @@ from openpyxl import Workbook
 
 
 def get_courses_list(number_of_courses=20):
-    course_urls_list = []
     site_map = requests.get("https://www.coursera.org/sitemap~www~courses.xml")
     root = ET.fromstring(site_map.text)
     list_urls = root.getchildren()
-    for i in range(0, number_of_courses):
-        url = random.choice(list_urls)
-        course_urls_list.append(url[0].text)
+    list_random_xml_urls = random.sample(list_urls, number_of_courses)
+    course_urls_list = [url[0].text for url in list_random_xml_urls]
     return course_urls_list
 
 
